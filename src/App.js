@@ -8,9 +8,18 @@ function App() {
   const [description, setDescription] = useState('');
   function addNewTransaction(ev) {
     ev.preventDefault();
-    const url = 'http://localhost:4000/api'+'/transaction';
-    console.log(url);  
-    // fetch(url)
+    const REACT_APP_API_URL = 'http://localhost:4000/api'
+    const url = REACT_APP_API_URL+'/transaction';
+    // console.log(url);  
+    fetch(url, {
+      method: 'POST',
+      headers: { 'Content-type': 'application/json' },
+      body: JSON.stringify({ name, description, datetime }),
+    }).then(response => {
+      response.json().then(json => {
+        console.log('result', json);
+      });
+    });
   }
   return (
     <main>
